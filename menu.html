@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta name="description" content="Awesome Bubble Navigation with jQuery" />
+        <meta name="keywords" content="jquery, circular menu, navigation, round, bubble"/>
+        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen"/>
+        <style>
+            *{
+                margin:0;
+                padding:0;
+            }
+            body{
+                font-family:Arial;
+				background: url(background.png) repeat top left;
+            }
+            .title{
+                width:548px;
+                height:119px;
+                position:absolute;
+                top:400px;
+                left:150px;
+            }
+            a.back{
+                background:transparent url(back.png) no-repeat top left;
+                position:fixed;
+                width:150px;
+                height:27px;
+                outline:none;
+                bottom:0px;
+                left:0px;
+            }
+            #content{
+                margin:0 auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="content">
+            <div class="title"></div>
+
+            <div class="navigation" id="nav">
+                <div class="item user">
+                    <img src="images/bg_user.png" alt="" width="199" height="199" class="circle"/>
+                    <a href="#" class="icon"></a>
+                    <h2>Профиль</h2>
+                    <ul>
+						<?php
+							if (!isset($_SESSION['login'])) echo "<li><a href='autorization.php'>Авторизация</a></li>";
+							else echo "<li><a href='profil.php'>Профиль</a></li>";
+							if (!isset($_SESSION['login'])) echo "<li><a href='registation.php'>Регистрация</a></li>";
+							else echo "<li><a href='exit.php'>Выход</a></li>";
+						?>	
+                    </ul>
+                </div>
+                <div class="item home">
+                    <img src="images/bg_home.png" alt="" width="199" height="199" class="circle"/>
+                    <a href="index.php" class="icon"></a>
+                    <h2>Главная</h2>
+                </div>
+                <div class="item shop">
+                    <img src="images/bg_shop.png" alt="" width="199" height="199" class="circle"/>
+                    <a href="shop.php" class="icon"></a>
+                    <h2>Путевки</h2>
+                </div>
+				<div class="item camera">
+                    <img src="images/bg_camera.png" alt="" width="199" height="199" class="circle"/>
+                    <a href="camera.php" class="icon"></a>
+                    <h2>Галерея</h2>
+                </div>
+                <div class="item fav">
+                    <img src="images/bg_fav.png" alt="" width="199" height="199" class="circle"/>
+                    <a href="#" class="icon"></a>
+                    <h2>Мы</h2>
+                    <ul>
+                        <li><a href="#">VK</a></li>
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Twiter</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- The JavaScript -->
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+        <script type="text/javascript" src="jquery.easing.1.3.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $('#nav > div').hover(
+                function () {
+                    var $this = $(this);
+                    $this.find('img').stop().animate({
+                        'width'     :'199px',
+                        'height'    :'199px',
+                        'top'       :'-25px',
+                        'left'      :'-25px',
+                        'opacity'   :'1.0'
+                    },500,'easeOutBack',function(){
+                        $(this).parent().find('ul').fadeIn(700);
+                    });
+
+                    $this.find('a:first,h2').addClass('active');
+                },
+                function () {
+                    var $this = $(this);
+                    $this.find('ul').fadeOut(500);
+                    $this.find('img').stop().animate({
+                        'width'     :'52px',
+                        'height'    :'52px',
+                        'top'       :'0px',
+                        'left'      :'0px',
+                        'opacity'   :'0.1'
+                    },5000,'easeOutBack');
+
+                    $this.find('a:first,h2').removeClass('active');
+                }
+            );
+            });
+        </script>		
+    </body>
+</html>
