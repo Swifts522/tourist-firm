@@ -1,0 +1,1 @@
+В конфигурации php в easyphp установить session.auto_start = 1
